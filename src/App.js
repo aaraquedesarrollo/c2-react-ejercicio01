@@ -1,21 +1,37 @@
+import { useState } from "react";
+
 function App() {
+  const [topGlobo, setTopGlobo] = useState(
+    Math.floor(Math.random() * window.innerHeight)
+  );
+  const [leftGlobo, setLeftGlobo] = useState(0);
+  const [puntos, setPuntos] = useState(0);
+  let timer;
+
+  const randomPosition = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      setTopGlobo(Math.floor(Math.random() * window.innerHeight));
+      setLeftGlobo(Math.floor(Math.random() * window.innerWidth));
+    }, 300);
+  };
+
+  const anyadirPunto = () => {
+    setPuntos(puntos + 1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>
+        Marcador <span>{puntos}</span>
+      </p>
+      <i
+        className="icono fab fa-fly"
+        onMouseOver={randomPosition}
+        onClick={anyadirPunto}
+        style={{ top: topGlobo, left: leftGlobo }}
+      ></i>
+    </>
   );
 }
 
